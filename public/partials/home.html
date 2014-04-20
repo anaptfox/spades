@@ -1,0 +1,45 @@
+<div ng-show="game">
+  <div class="row">
+    <div class="col-md-6">
+      <p>The Game Has started.</p>
+      <hr>
+      <div class="row">
+        <div class="col-md-6">
+          <h5>Team One Score</h5>
+          <p>Team One Bid</p>
+          <input ng-model="scoreOneBid" type="text">
+          <p>Team One Act</p>
+          <input ng-model="scoreOneAct" type="text">
+        </div>
+        <div class="col-md-6">
+          <h5>Team Two Score</h5>
+          <p>Team Two Bid</p>
+          <input ng-model="scoreTwoBid" type="text">
+          <p>Team Two Act</p>
+          <input ng-model="scoreTwoAct" type="text">
+        </div>
+      </div>
+      <hr>
+      <button ng-click="submitScore()">Submit Score</button>
+    </div>
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-md-6">
+          <h1>Team 1</h1>
+          <p ng-repeat="score in teamOneScores">{{score.score}}</p>
+          <p>Total: {{teamOneTotal()}}</p>
+        </div>
+        <div class="col-md-6">
+          <h1>Team 2</h1>
+          <p ng-repeat="score in teamTwoScores">{{score.score}}</p>
+          <p>Total:  {{teamTwoTotal()}}</p>
+        </div>
+      </div>
+      
+      
+    </div>
+  </div>
+</div>
+<div ng-hide="game">
+  <button ng-click="startGame()">Start Game</button>
+</div>
