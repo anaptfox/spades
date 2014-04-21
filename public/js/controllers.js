@@ -7,6 +7,8 @@ angular.module('myApp.controllers', [])
 
     $scope.game = false;
 
+    $scope.firstGame = false;
+
     $scope.teamOneScores = [];
 
     $scope.teamTwoScores = [];
@@ -14,32 +16,57 @@ angular.module('myApp.controllers', [])
     $scope.startGame = function() {
 
       $scope.game = true;
-
+      $scope.firstGame = true;
+      alert("First Game! First Game Bets Itself!");
     };
 
     $scope.submitScore = function() {
 
-      if(($scope.scoreOneBid + $scope.scoreTwoBid) < 10){
-        alert("Bid's need to equal 10");
+      if ($scope.firstGame == true) {
+
+        if ((parseInt($scope.scoreOneAct) + parseInt($scope.scoreTwoAct)) != 13) {
+          alert("Books need to equal 13");
+        }
+
+        $scope.teamOneScores.push({
+          bid: $scope.scoreOneAct,
+          act: $scope.scoreOneAct,
+          score: calcBidScore($scope.scoreOneAct, $scope.scoreOneAct)
+        });
+
+        $scope.teamTwoScores.push({
+          bid: $scope.scoreTwoAct,
+          act: $scope.scoreTwoAct,
+          score: calcBidScore($scope.scoreTwoAct, $scope.scoreTwoAct)
+        });
+
+        $scope.firstGame == false;
+
+      } else {
+
+        if (($scope.scoreOneBid + $scope.scoreTwoBid) < 10) {
+          alert("Bid's need to equal 10");
+        }
+
+        if ((parseInt($scope.scoreOneAct) + parseInt($scope.scoreTwoAct)) != 13) {
+          alert("Books need to equal 13");
+        }
+
+        $scope.teamOneScores.push({
+          bid: $scope.scoreOneBid,
+          act: $scope.scoreOneAct,
+          score: calcBidScore($scope.scoreOneBid, $scope.scoreOneAct)
+        });
+
+        $scope.teamTwoScores.push({
+          bid: $scope.scoreTwoBid,
+          act: $scope.scoreTwoAct,
+          score: calcBidScore($scope.scoreTwoBid, $scope.scoreTwoAct)
+        });
+
+        checkScore($scope.teamOneTotal(), $scope.teamTwoTotal());
+
       }
-
-      if((parseInt($scope.scoreOneAct) + parseInt($scope.scoreTwoAct)) != 13){
-        alert("Books need to equal 13");
-      }
-
-      $scope.teamOneScores.push({
-        bid: $scope.scoreOneBid,
-        act: $scope.scoreOneAct,
-        score: calcBidScore($scope.scoreOneBid, $scope.scoreOneAct)
-      });
-
-      $scope.teamTwoScores.push({
-        bid: $scope.scoreTwoBid,
-        act: $scope.scoreTwoAct,
-        score: calcBidScore($scope.scoreTwoBid, $scope.scoreTwoAct)
-      });
-
-      checkScore($scope.teamOneTotal(), $scope.teamTwoTotal() );
 
     };
 
@@ -49,7 +76,7 @@ angular.module('myApp.controllers', [])
 
       var total = 0;
 
-      if($scope.teamOneScores.length == 0){
+      if ($scope.teamOneScores.length == 0) {
         return 0;
       }
 
@@ -66,7 +93,7 @@ angular.module('myApp.controllers', [])
 
       var total = 0;
 
-      if($scope.teamTwoScores.length == 0){
+      if ($scope.teamTwoScores.length == 0) {
         return 0;
       }
 
@@ -81,46 +108,53 @@ angular.module('myApp.controllers', [])
 
     function calcBidScore(bid, act) {
 
-      // bit 10 and make 200
+      if ($scope.firstGame == true) {
 
-      bid = parseInt(bid);
-
-      act = parseInt(act);
-
-      if (bid == 10 && act == 10){
-        return 200;
-      }
-
-      if (bid < act) {
-        // special rules
-        return (bid * 10) + (act - bid);
-
-      } else if (bid > act) {
-
-        return -(bid * 10);
+        act = parseInt(act);
+        return (act * 10);
 
       } else {
 
-        return (bid * 10);
+        bid = parseInt(bid);
 
-      }
+        act = parseInt(act);
 
+        if (bid == 10 && act == 10) {
+          return 200;
+        }
 
-    }
+        if (bid < act) {
+          // special rules
+          return (bid * 10) + (act - bid);
 
-    function checkScore(one, two) {
+        } else if (bid > act) {
 
-        if((one >= 500) || (two >= 500)){
+          return -(bid * 10);
 
-          if(one > two){
-            alert("One Wins");
-          }else{
-            alert("Two Wins");
-          }
+        } else {
+
+          return (bid * 10);
 
         }
 
       }
+
+
+    };
+
+    function checkScore(one, two) {
+
+      if ((one >= 500) || (two >= 500)) {
+
+        if (one > two) {
+          alert("One Wins");
+        } else {
+          alert("Two Wins");
+        }
+
+      }
+
+    }
 
 
   });
