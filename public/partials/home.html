@@ -6,8 +6,10 @@
       <div class="row">
         <div class="col-md-6">
           <h5>Team One Score</h5>
-          <p>Team One Bid</p>
-          <input ng-model="scoreOneBid" type="text">
+          <div ng-hide="firstHandGame">
+            <p>Team One Bid</p>
+            <input ng-model="scoreOneBid" type="text">
+          </div>
           <p>Team One Books</p>
           <input ng-model="scoreOneBooks" type="text">
         </div>
@@ -34,9 +36,7 @@
           <p ng-repeat="score in teamTwoScores">{{score.score}}</p>
           <p>Total:  {{teamTwoTotal()}}</p>
         </div>
-      </div>
-      
-      
+      </div>  
     </div>
   </div>
 </div>

@@ -7,7 +7,7 @@ angular.module('myApp.controllers', [])
 
     $scope.game = false;
 
-    $scope.firstHand = false;
+    $scope.firstHandGame = false;
 
     $scope.teamOneScores = [];
 
@@ -17,7 +17,7 @@ angular.module('myApp.controllers', [])
 
       $scope.game = true;
       $scope.firstHandGame = true;
-      alert("First Game! First hand bets itself!");
+      alert("First hand bets itself!");
 
     };
 
@@ -31,6 +31,7 @@ angular.module('myApp.controllers', [])
 
         $scope.teamOneScores.push({
           books: $scope.scoreOneBooks,
+          // TODO: first hand property
           score: firstHand($scope.scoreOneBooks, $scope.scoreOneBooks)
         });
 
@@ -68,7 +69,6 @@ angular.module('myApp.controllers', [])
       }
 
     };
-
 
 
     $scope.teamOneTotal = function () {
