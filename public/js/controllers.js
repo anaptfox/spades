@@ -3,44 +3,43 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-  .controller('HomeCtrl', function($scope) {
+  .controller('HomeCtrl', function ($scope) {
 
     $scope.game = false;
 
-    $scope.firstGame = false;
+    $scope.firstHand = false;
 
     $scope.teamOneScores = [];
 
     $scope.teamTwoScores = [];
 
-    $scope.startGame = function() {
+    $scope.startGame = function () {
 
       $scope.game = true;
-      $scope.firstGame = true;
-      alert("First Game! First Game Bets Itself!");
+      $scope.firstHandGame = true;
+      alert("First Game! First hand bets itself!");
+
     };
 
-    $scope.submitScore = function() {
+    $scope.submitScore = function () {
 
-      if ($scope.firstGame == true) {
+      if ($scope.firstHandGame = true) {
 
-        if ((parseInt($scope.scoreOneAct) + parseInt($scope.scoreTwoAct)) != 13) {
+        if ((parseInt($scope.scoreOneBooks) + parseInt($scope.scoreTwoBooks)) != 13) {
           alert("Books need to equal 13");
         }
 
         $scope.teamOneScores.push({
-          bid: $scope.scoreOneAct,
-          act: $scope.scoreOneAct,
-          score: calcBidScore($scope.scoreOneAct, $scope.scoreOneAct)
+          books: $scope.scoreOneBooks,
+          score: firstHand($scope.scoreOneBooks, $scope.scoreOneBooks)
         });
 
         $scope.teamTwoScores.push({
-          bid: $scope.scoreTwoAct,
-          act: $scope.scoreTwoAct,
-          score: calcBidScore($scope.scoreTwoAct, $scope.scoreTwoAct)
+          books: $scope.scoreTwoBooks,
+          score: firstHand($scope.scoreTwoBooks, $scope.scoreTwoBooks)
         });
 
-        $scope.firstGame == false;
+        $scope.firstHandGame = false;
 
       } else {
 
@@ -48,20 +47,20 @@ angular.module('myApp.controllers', [])
           alert("Bid's need to equal 10");
         }
 
-        if ((parseInt($scope.scoreOneAct) + parseInt($scope.scoreTwoAct)) != 13) {
+        if ((parseInt($scope.scoreOneBooks) + parseInt($scope.scoreTwoBooks)) != 13) {
           alert("Books need to equal 13");
         }
 
         $scope.teamOneScores.push({
           bid: $scope.scoreOneBid,
-          act: $scope.scoreOneAct,
-          score: calcBidScore($scope.scoreOneBid, $scope.scoreOneAct)
+          books: $scope.scoreOneBooks,
+          score: calcBidScore($scope.scoreOneBid, $scope.scoreOneBooks)
         });
 
         $scope.teamTwoScores.push({
           bid: $scope.scoreTwoBid,
-          act: $scope.scoreTwoAct,
-          score: calcBidScore($scope.scoreTwoBid, $scope.scoreTwoAct)
+          books: $scope.scoreTwoBooks,
+          score: calcBidScore($scope.scoreTwoBid, $scope.scoreTwoBooks)
         });
 
         checkScore($scope.teamOneTotal(), $scope.teamTwoTotal());
@@ -72,7 +71,7 @@ angular.module('myApp.controllers', [])
 
 
 
-    $scope.teamOneTotal = function() {
+    $scope.teamOneTotal = function () {
 
       var total = 0;
 
@@ -89,7 +88,7 @@ angular.module('myApp.controllers', [])
 
     };
 
-    $scope.teamTwoTotal = function() {
+    $scope.teamTwoTotal = function () {
 
       var total = 0;
 
@@ -106,39 +105,29 @@ angular.module('myApp.controllers', [])
 
     };
 
-    function calcBidScore(bid, act) {
+    function calcBidScore(bid, books) {
 
-      if ($scope.firstGame == true) {
+      bid = parseInt(bid);
 
-        act = parseInt(act);
-        return (act * 10);
+      books = parseInt(books);
+
+      if (bid == 10 && books == 10) {
+        return 200;
+      }
+
+      if (bid < books) {
+        // special rules
+        return (bid * 10) + (books - bid);
+
+      } else if (bid > books) {
+
+        return -(bid * 10);
 
       } else {
 
-        bid = parseInt(bid);
-
-        act = parseInt(act);
-
-        if (bid == 10 && act == 10) {
-          return 200;
-        }
-
-        if (bid < act) {
-          // special rules
-          return (bid * 10) + (act - bid);
-
-        } else if (bid > act) {
-
-          return -(bid * 10);
-
-        } else {
-
-          return (bid * 10);
-
-        }
+        return (bid * 10);
 
       }
-
 
     };
 
@@ -156,5 +145,11 @@ angular.module('myApp.controllers', [])
 
     }
 
+    function firstHand(books) {
+
+      var score = parseInt(books);
+      return score * 10;
+
+    }
 
   });
