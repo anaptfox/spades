@@ -30,14 +30,15 @@ angular.module('myApp.controllers', [])
         }
 
         $scope.teamOneScores.push({
+          firstHand: true,
           books: $scope.scoreOneBooks,
-          // TODO: first hand property
-          score: firstHand($scope.scoreOneBooks, $scope.scoreOneBooks)
+          score: firstHand($scope.scoreOneBooks)
         });
 
         $scope.teamTwoScores.push({
+          firstHand: true,
           books: $scope.scoreTwoBooks,
-          score: firstHand($scope.scoreTwoBooks, $scope.scoreTwoBooks)
+          score: firstHand($scope.scoreTwoBooks)
         });
 
         $scope.firstHandGame = false;
@@ -53,12 +54,14 @@ angular.module('myApp.controllers', [])
         }
 
         $scope.teamOneScores.push({
+          firstHand: false,
           bid: $scope.scoreOneBid,
           books: $scope.scoreOneBooks,
           score: calcBidScore($scope.scoreOneBid, $scope.scoreOneBooks)
         });
 
         $scope.teamTwoScores.push({
+          firstHand: false,
           bid: $scope.scoreTwoBid,
           books: $scope.scoreTwoBooks,
           score: calcBidScore($scope.scoreTwoBid, $scope.scoreTwoBooks)
@@ -111,8 +114,8 @@ angular.module('myApp.controllers', [])
 
       books = parseInt(books);
 
-      if (bid == 10 && books == 10) {
-        return 200;
+      if (bid == books) {
+        return (books * 10);
       }
 
       if (bid < books) {

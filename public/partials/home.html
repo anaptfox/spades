@@ -1,3 +1,4 @@
+<!-- If game == true then show div, else hide -->
 <div ng-show="game">
   <div class="row">
     <div class="col-md-6">
@@ -6,6 +7,8 @@
       <div class="row">
         <div class="col-md-6">
           <h5>Team One Score</h5>
+
+          <!-- If firstHandGame == false then hide div, else show -->
           <div ng-hide="firstHandGame">
             <p>Team One Bid</p>
             <input ng-model="scoreOneBid" type="text">
@@ -15,8 +18,12 @@
         </div>
         <div class="col-md-6">
           <h5>Team Two Score</h5>
-          <p>Team Two Bid</p>
-          <input ng-model="scoreTwoBid" type="text">
+
+          <!-- If firstHandGame == false then hide div, else show -->
+          <div ng-hide="firstHandGame">
+            <p>Team Two Bid</p>
+            <input ng-model="scoreTwoBid" type="text">
+          </div>
           <p>Team Two Books</p>
           <input ng-model="scoreTwoBooks" type="text">
         </div>
@@ -40,6 +47,8 @@
     </div>
   </div>
 </div>
+
+<!-- If game == false then show div, else hide -->
 <div ng-hide="game">
   <button ng-click="startGame()">Start Game</button>
 </div>
